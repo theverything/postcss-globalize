@@ -1,6 +1,6 @@
 {
   "name": "postcss-globalize",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "add :global before all classes and ids",
   "main": "index.js",
   "scripts": {
