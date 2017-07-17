@@ -1,9 +1,11 @@
 const postcss = require('postcss');
 
-function globalize(selector) {
-  const s = selector.trim();
-  const char = s.trim().charAt(0);
-  return char === '.' || char === '#' ? `{{GLOBAL}}${s.trim()}` : s.trim();
+const regex = new RegExp(/([.#][a-z0-9_-]+)(\s*,\s*|\s+)?/, 'gi');
+
+function globalize(_, selector, separator = '') {
+  const char = selector.charAt(0);
+  const newSelector = char === '.' || char === '#' ? `:global ${selector}` : selector;
+  return `${newSelector}${separator}`;
 }
 
 module.exports = postcss.plugin('postcss-globalize', function(opts) {
@@ -11,20 +13,7 @@ module.exports = postcss.plugin('postcss-globalize', function(opts) {
 
   return function(css, result) {
     css.walkRules(rule => {
-      rule.selector = rule.selector
-        // handle comma sperated selectors
-        .split(',')
-        .map(globalize)
-        .join(',')
-        // handle space sperated selectors
-        .split(' ')
-        .map(globalize)
-        .join(' ')
-        // add the `:global` identifier
-        .replace(/{{GLOBAL}}/g, ':global ')
-        // add spaces after commas
-        .split(',')
-        .join(', ');
+      rule.selector = rule.selector.replace(regex, globalize);
     });
   };
 });
