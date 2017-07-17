@@ -1,0 +1,22 @@
+{
+  "name": "postcss-globalize",
+  "version": "0.1.0",
+  "description": "add :global before all classes and ids",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "postcss",
+    "global",
+    "css"
+  ],
+  "author": "theverything",
+  "license": "MIT",
+  "dependencies": {
+    "postcss": "^6.0.7"
+  },
+  "devDependencies": {
+    "jest": "^20.0.4"
+  }
+}
