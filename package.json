@@ -1,10 +1,10 @@
 {
   "name": "postcss-globalize",
-  "version": "0.3.0",
+  "version": "1.0.0",
   "description": "add :global before all classes and ids",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --no-watchman"
   },
   "keywords": ["postcss", "global", "css"],
   "author": "theverything",
@@ -13,6 +13,15 @@
     "postcss": "^6.0.7"
   },
   "devDependencies": {
-    "jest": "^20.0.4"
-  }
+    "jest": "^20.0.4",
+    "postcss-modules": "^0.8.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/theverything/postcss-globalize.git"
+  },
+  "bugs": {
+    "url": "https://github.com/theverything/postcss-globalize/issues"
+  },
+  "homepage": "https://github.com/theverything/postcss-globalize#readme"
 }
