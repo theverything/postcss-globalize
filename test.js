@@ -13,6 +13,7 @@ div > .foo {margin:0;}
 p + p > .foo ~ .bar + .baz:hover {margin:0;}
 .article #comments ul > li > a.button {margin:0;}
 @keyframes test-keyframe {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
+@-webkit-keyframes test-keyframe {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
 @charset "utf-8"`;
 
 const output = `body {margin:0;}
@@ -26,6 +27,7 @@ h1, div a ul, :global(.foo), :global(span .bazz .hello-world), :global(#bar), di
 :global(p + p > .foo ~ .bar + .baz:hover) {margin:0;}
 :global(.article #comments ul > li > a.button) {margin:0;}
 @keyframes :global(test-keyframe) {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
+@-webkit-keyframes :global(test-keyframe) {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
 @charset "utf-8"`;
 
 test('adds `:global` to classes, ids, and keyframes', function() {

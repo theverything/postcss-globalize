@@ -17,7 +17,7 @@ module.exports = postcss.plugin('postcss-globalize', function(opts) {
         .join(', ');
     });
 
-    css.walkAtRules('keyframes', rule => {
+    css.walkAtRules(/keyframes/, rule => {
       rule.params = `:global(${rule.params})`;
     });
   };
