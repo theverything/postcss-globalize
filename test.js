@@ -11,7 +11,9 @@ h1, div a ul, .foo, span .bazz .hello-world, #bar, div code {margin:0;}
 .col-9, .col-10, .Component__foo {margin:0;}
 div > .foo {margin:0;}
 p + p > .foo ~ .bar + .baz:hover {margin:0;}
-.article #comments ul > li > a.button {margin:0;}`;
+.article #comments ul > li > a.button {margin:0;}
+@keyframes test-keyframe {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
+@charset "utf-8"`;
 
 const output = `body {margin:0;}
 :global(body .class), :global(.foo) {margin:0;}
@@ -22,9 +24,11 @@ h1, div a ul, :global(.foo), :global(span .bazz .hello-world), :global(#bar), di
 :global(.col-9), :global(.col-10), :global(.Component__foo) {margin:0;}
 :global(div > .foo) {margin:0;}
 :global(p + p > .foo ~ .bar + .baz:hover) {margin:0;}
-:global(.article #comments ul > li > a.button) {margin:0;}`;
+:global(.article #comments ul > li > a.button) {margin:0;}
+@keyframes :global(test-keyframe) {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
+@charset "utf-8"`;
 
-test('adds `:global` to classes and ids', function() {
+test('adds `:global` to classes, ids, and keyframes', function() {
   return postcss([globalize()])
     .process(input)
     .then(function(r) {
