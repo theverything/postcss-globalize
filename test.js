@@ -12,6 +12,8 @@ h1, div a ul, .foo, span .bazz .hello-world, #bar, div code {margin:0;}
 div > .foo {margin:0;}
 p + p > .foo ~ .bar + .baz:hover {margin:0;}
 .article #comments ul > li > a.button {margin:0;}
+.animation-class {animation:3s test-keyframe;animation-name:test-keyframe;}
+.class, .foo .animation-class {animation:3s test-keyframe;animation-name:test-keyframe;}
 @keyframes test-keyframe {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
 @-webkit-keyframes test-keyframe {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
 @charset "utf-8"`;
@@ -26,21 +28,27 @@ h1, div a ul, :global(.foo), :global(span .bazz .hello-world), :global(#bar), di
 :global(div > .foo) {margin:0;}
 :global(p + p > .foo ~ .bar + .baz:hover) {margin:0;}
 :global(.article #comments ul > li > a.button) {margin:0;}
+:global(.animation-class) :global {animation:3s test-keyframe;animation-name:test-keyframe;}
+:global(.class) :global, :global(.foo .animation-class) :global {animation:3s test-keyframe;animation-name:test-keyframe;}
 @keyframes :global(test-keyframe) {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
 @-webkit-keyframes :global(test-keyframe) {0%{transform:rotate(0deg);}100%{transform:rotate(359deg);}}
 @charset "utf-8"`;
 
-test('adds `:global` to classes, ids, and keyframes', function() {
-  return postcss([globalize()])
-    .process(input)
-    .then(function(r) {
-      expect(r.css).toEqual(output);
-      return r;
-    })
-    .then(function(r) {
-      return postcss([modules({ getJSON: function() {} })]).process(r);
-    })
-    .then(function(r) {
-      expect(r.css).toEqual(input);
-    });
+describe('postcss-globalize', () => {
+  let globalizeResult;
+
+  test('adds `:global` scope to classes, ids, keyframes, and declarations with `animation` or `animation-name`', () =>
+    postcss([globalize()])
+      .process(input, { from: undefined })
+      .then(r => {
+        expect(r.css).toEqual(output);
+        globalizeResult = r;
+      }));
+
+  test('parses correctly with css modules', () =>
+    postcss([modules({ getJSON() {} })])
+      .process(globalizeResult, { from: undefined })
+      .then(r => {
+        expect(r.css).toEqual(input);
+      }));
 });

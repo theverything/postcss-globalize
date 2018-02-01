@@ -1,20 +1,31 @@
 {
   "name": "postcss-globalize",
-  "version": "2.0.1",
-  "description": "add :global before all classes and ids",
+  "version": "3.0.0",
+  "description":
+    "add `:global` scope to classes, ids, keyframes, and declarations with `animation` or `animation-name`",
   "main": "index.js",
   "scripts": {
-    "test": "jest --no-watchman"
+    "test": "jest --env node --runInBand --coverage",
+    "test:dev": "jest --env node --watch",
+    "lint": "eslint ./*.js"
   },
   "keywords": ["postcss", "global", "css"],
   "author": "theverything",
   "license": "MIT",
   "dependencies": {
-    "postcss": "^6.0.11"
+    "postcss": "^6.0.17"
   },
   "devDependencies": {
-    "jest": "^21.1.0",
-    "postcss-modules": "^0.8.0"
+    "babel-eslint": "^8.2.1",
+    "coveralls": "^3.0.0",
+    "eslint": "^4.16.0",
+    "eslint-config-airbnb-base": "^12.1.0",
+    "eslint-config-prettier": "^2.9.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-prettier": "^2.5.0",
+    "jest": "^22.1.4",
+    "postcss-modules": "^1.1.0",
+    "prettier": "^1.10.2"
   },
   "repository": {
     "type": "git",

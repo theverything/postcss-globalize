@@ -1,10 +1,10 @@
-# postcss-globalize #
+# postcss-globalize
 
-If you are using `postcss-modules` this plugin will scope all `@keyframes`, `.classes`, and `#ids` as `global` by  adding `:global()`.
+If you are using `postcss-modules` this plugin will scope all `@keyframes`, `.classes`, and `#ids` as `global` by adding `:global()`. It will also scope selectors with `animation` or `animation-name` declarations with a `:global` scope.
 
-## Useage ##
+## Useage
 
-``` javascript
+```javascript
 const fs = require('fs');
 const postcss = require('postcss');
 const globalize = require('postcss-globalize');
@@ -13,6 +13,7 @@ const globalize = require('postcss-globalize');
 
 .class {
   margin:0;
+  animation: test-keyframe 3s;
 }
 
 #id {
@@ -30,8 +31,9 @@ fs.readFile('styles.css', (err, css) => {
 
 /* output.css
 
-:global(.class) {
+:global(.class) :global {
    margin:0;
+   animation: test-keyframe 3s;
 }
 
 :global(#id) {

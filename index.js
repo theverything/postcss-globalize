@@ -2,23 +2,28 @@ const postcss = require('postcss');
 
 const globalRegex = new RegExp(/(\.|#)[a-z-_]+/, 'gi');
 
-module.exports = postcss.plugin('postcss-globalize', function(opts) {
-  opts = opts || {};
+module.exports = postcss.plugin('postcss-globalize', () => css => {
+  css.walkRules(rule => {
+    let hasAnimationDecl = false;
 
-  return function(css, result) {
-    css.walkRules(rule => {
-      rule.selector = rule.selectors
-        .map(selector => {
-          const hasClassOrID = selector.match(globalRegex);
-          const s = hasClassOrID ? `:global(${selector})` : selector;
-
-          return s;
-        })
-        .join(', ');
+    rule.walkDecls(/^animation(-name)?$/, () => {
+      hasAnimationDecl = true;
     });
 
-    css.walkAtRules(/keyframes/, rule => {
-      rule.params = `:global(${rule.params})`;
-    });
-  };
+    // eslint-disable-next-line no-param-reassign
+    rule.selector = rule.selectors
+      .map(selector => {
+        const hasClassOrID = selector.match(globalRegex);
+        let s = hasClassOrID ? `:global(${selector})` : selector;
+        s = hasAnimationDecl ? `${s} :global` : s;
+
+        return s;
+      })
+      .join(', ');
+  });
+
+  css.walkAtRules(/keyframes/, rule => {
+    // eslint-disable-next-line no-param-reassign
+    rule.params = `:global(${rule.params})`;
+  });
 });
