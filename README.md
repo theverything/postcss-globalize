@@ -1,6 +1,7 @@
 # postcss-globalize
 
 [![Build Status](https://travis-ci.org/theverything/postcss-globalize.svg?branch=master)](https://travis-ci.org/theverything/postcss-globalize)
+[![Coverage Status](https://coveralls.io/repos/github/theverything/postcss-globalize/badge.svg?branch=master)](https://coveralls.io/github/theverything/postcss-globalize?branch=master)
 
 If you are using `postcss-modules` this plugin will scope all `@keyframes`, `.classes`, and `#ids` as `global` by adding `:global()`. It will also scope selectors with `animation` or `animation-name` declarations with a `:global` scope.
 
